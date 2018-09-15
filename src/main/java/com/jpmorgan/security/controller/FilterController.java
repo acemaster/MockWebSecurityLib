@@ -3,6 +3,7 @@ package com.jpmorgan.security.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jpmorgan.security.lib.SQLUtil;
 import com.jpmorgan.security.lib.XSSUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,10 @@ public class FilterController {
     @PostMapping
     public ResponseEntity getTestData(@RequestBody MockRequestBody mockRequestBody) {
         try {
-            String temp = XSSUtil.stripXSS(objectMapper.writeValueAsString(mockRequestBody));
-            mockRequestBody = objectMapper.readValue(temp,MockRequestBody.class);
+            String requestBody = objectMapper.writeValueAsString(mockRequestBody);
+            String temp = XSSUtil.stripXSS(requestBody);
+            String tempNoSql = SQLUtil.stripSQL(temp);
+            mockRequestBody = objectMapper.readValue(tempNoSql,MockRequestBody.class);
         } catch (JsonProcessingException e) {
             logger.info(e.getMessage());
         } catch (IOException e) {

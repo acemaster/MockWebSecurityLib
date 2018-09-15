@@ -17,31 +17,25 @@ public class SQLUtil {
             Pattern queryPattern = Pattern.compile("('.+--)|(--)|(\\|)|(%7C)", Pattern.MULTILINE | Pattern.DOTALL);
             value = queryPattern.matcher(value).replaceAll( "");
 
-            queryPattern = Pattern.compile("(?i)(.*)(\\\\b)+INSERT(\\\\b)+\\\\s.*(\\\\b)+INTO(\\\\b)+\\\\s.*(.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
+            queryPattern = Pattern.compile("INSERT INTO (.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
             value = queryPattern.matcher(value).replaceAll("");
 
-            queryPattern = Pattern.compile("(?i)(.*)(\\\\b)+UPDATE(\\\\b)+\\\\s.*(.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
+            queryPattern = Pattern.compile("UPDATE (.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
             value = queryPattern.matcher(value).replaceAll("");
 
-            queryPattern = Pattern.compile("(?i)(.*)(\\\\b)+DELETE(\\\\b)+\\\\s.*(\\\\b)+FROM(\\\\b)+\\\\s.*(.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
+            queryPattern = Pattern.compile("DELETE FROM (.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
             value = queryPattern.matcher(value).replaceAll("");
 
-            queryPattern = Pattern.compile("(?i)(.*)(\\\\b)+UPSERT(\\\\b)+\\\\s.*(.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
+            queryPattern = Pattern.compile("UPSERT (.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
             value = queryPattern.matcher(value).replaceAll("");
 
-            queryPattern = Pattern.compile("(?i)(.*)(\\\\b)+DROP(\\\\b)+\\\\s.*(.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
+            queryPattern = Pattern.compile("DROP TABLE (.*?)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
             value = queryPattern.matcher(value).replaceAll("");
 
-            queryPattern = Pattern.compile("(.*)(/\\\\*|\\\\*/|;){1,}(.*)", Pattern.MULTILINE | Pattern.DOTALL);
+            queryPattern = Pattern.compile("DESCRIBE (.*)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
             value = queryPattern.matcher(value).replaceAll("");
 
-            queryPattern = Pattern.compile("(.*)(-){2,}(.*)", Pattern.MULTILINE | Pattern.DOTALL);
-            value = queryPattern.matcher(value).replaceAll("");
-
-            queryPattern = Pattern.compile("(?i)(.*)(\\\\b)+DESCRIBE(\\\\b)+(\\\\w)*\\\\s.*(.*)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
-            value = queryPattern.matcher(value).replaceAll("");
-
-            queryPattern = Pattern.compile("(?i)(.*)(\\\\b)+DESC(\\\\b)+(\\\\w)*\\\\s.*(.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
+            queryPattern = Pattern.compile("DESC (.*)", Pattern.CASE_INSENSITIVE| Pattern.MULTILINE | Pattern.DOTALL);
             value = queryPattern.matcher(value).replaceAll("");
 
         }
